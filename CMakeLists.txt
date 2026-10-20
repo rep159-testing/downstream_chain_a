@@ -7,21 +7,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 include(GNUInstallDirs)
 include(CMakePackageConfigHelpers)
 
-find_package(downstream_bin_a QUIET)
-if(NOT downstream_bin_a_FOUND)
-  find_library(DOWNSTREAM_BIN_A_LIB NAMES downstream_bin_a)
-  find_path(DOWNSTREAM_BIN_A_INCLUDE_DIR NAMES downstream_bin_a/downstream_bin_a.hpp)
-  if(DOWNSTREAM_BIN_A_LIB AND DOWNSTREAM_BIN_A_INCLUDE_DIR)
-    add_library(downstream_bin_a SHARED IMPORTED)
-    set_target_properties(downstream_bin_a PROPERTIES
-      IMPORTED_LOCATION "${DOWNSTREAM_BIN_A_LIB}"
-      INTERFACE_INCLUDE_DIRECTORIES "${DOWNSTREAM_BIN_A_INCLUDE_DIR}"
-    )
-    add_library(downstream_bin_a::downstream_bin_a ALIAS downstream_bin_a)
-  else()
-    message(FATAL_ERROR "Could not find downstream_bin_a library or headers")
-  endif()
-endif()
+find_package(downstream_bin_a 0.2 REQUIRED)
 
 add_library(downstream_chain_a SHARED src/downstream_chain_a.cpp)
 add_library(downstream_chain_a::downstream_chain_a ALIAS downstream_chain_a)
