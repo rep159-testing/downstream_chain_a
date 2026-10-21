@@ -10,7 +10,7 @@ namespace downstream_chain_a
 std::string chain_label(const std::string & yaml_document)
 {
   std::string result = downstream_bin_a::label_from_yaml(yaml_document);
-  if (result == "invalid") {
+  if (result == "invalid" || result.rfind(": invalid") != std::string::npos) {
     return "chain_error: invalid";
   }
   return "chain: " + result;
